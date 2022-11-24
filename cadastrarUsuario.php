@@ -1,6 +1,6 @@
 <?php
 // Estabelece conexão
-$c = oci_connect("seu usuário oracle", "sua senha", "bdengcomp_low");
+$c = oci_connect("seu usuário oraclegi", "sua senha", "bdengcomp_low");
 
 // Se não conseguiu estabelecer conexão
 if (!$c) {
