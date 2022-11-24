@@ -1,12 +1,7 @@
 <?php
 // Estabelece conexão
-$c = oci_connect("seu usuário oraclegi", "sua senha", "bdengcomp_low");
-
-// Se não conseguiu estabelecer conexão
-if (!$c) {
-    $m = oci_error();
-    trigger_error("Não pôde conectar com o banco de dados: ". $m["message"], E_USER_ERROR);
-}
+include "index.php";
+$c = conecta();
 
 // determina o comando SQL
 $s = oci_parse($c, "INSERT INTO CLIENTE VALUES (:1, :2, :3, :4, :5)");

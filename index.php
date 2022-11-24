@@ -1,23 +1,16 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>E-BOOK STORE</title>
-    </head>
-    <body>
-        <?php
-        // Iniciar o PHP: rode o aplicativo c:\xampp\xampp_start.exe. (Faça sempre que quiser utilizar páginas PHP)
+<?php
 
-        // link do Browser: http://localhost/ProjetosPHP/E-book/index.php
-            
-            print <<<_HTML_
-                <FORM method="post" action="verificaLogin.php">
-                <span>Usuário: </span><input type='text' name="nome"><br/>
-                <span>Senha: </span><input type='text' name="nota"><br/>
-                <INPUT type="submit" value="SUBMETER">
-                </FORM>
-            _HTML_;
-            
-        ?>
-    </body>
-</html>
+// arquvivo para colocar funções gearis
 
+// conecta ao servidor da oracle
+function conecta(){
+    $c =  oci_connect("seu usuário oracle", "sua senha", "bdengcomp_low");
+    // Se não conseguiu estabelecer conexão
+    if (!$c) {
+        $m = oci_error();
+        trigger_error("Could not connect to database: ". $m["message"], E_USER_ERROR);
+    }
+    return $c;
+}
+
+?>
