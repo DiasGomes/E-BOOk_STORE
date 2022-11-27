@@ -9,7 +9,7 @@ session_start();
     </head>
     <body>
         <a href="acervo.php">voltar</a>
-        
+        <h3 class="title has-text-grey">EDITAR PERFIL</h3>
         <FORM method="post" action="controle/editarPerfil.php">
             <span>Alterar Nome: </span><input type='text' name="nome"><br/>
             <span>Alterar  Sobrenome: </span><input type='text' name="sobrenome"><br/>
@@ -26,6 +26,25 @@ session_start();
             <span>Colocar dinheiro: </span><input type='text' name="dinheiro"><br/>
             <span>Alterar Senha: </span><input type='text' name="senha"><br/>
             <INPUT type="submit" value="CADASTRAR">
+            
+            <?php if(isset($_SESSION['nao_atualizado'])): ?>
+                <div class="notification is-danger">
+                    <p>Todos os campos estão vazios</p>
+                </div>
+            <?php
+                endif;
+                unset($_SESSION['nao_atualizado']);
+            ?>
+
+            <?php if(isset($_SESSION['atualizado'])): ?>
+                <div class="notification is-danger">
+                    <p>Atualizado</p>
+                </div>
+            <?php
+                endif;
+                unset($_SESSION['atualizado']);
+            ?>
+
         </FORM>
 
     </body>

@@ -3,7 +3,7 @@ session_start();
 // Estabelece conexão
 include "conexao.php";
 
-if(empty($_POST['email']) || empty($_POST['senha'])) {
+if(empty($_POST['email']) || empty($_POST['sobrenome']) || empty($_POST['nome']) || empty($_POST['senha']) || empty($_POST['saldo'])) {
     $_SESSION['nao_cadastrado'] = true;
 	header('Location: ../cadastro.php');
 	exit();

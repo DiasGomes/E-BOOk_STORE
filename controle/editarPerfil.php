@@ -1,25 +1,66 @@
 <?php
+session_start();
 // Estabelece conexão
 include "conexao.php";
 
-// determina o comando SQL
-$s = oci_parse($conexao, "INSERT INTO CLIENTE VALUES (:1, :2, :3, :4, :5)");
+if(empty($_POST['sobrenome']) && empty($_POST['nome']) && empty($_POST['senha']) && empty($_POST['dinheiro'])) {
+    $_SESSION['nao_atualizado'] = true;
+	header('Location: ../perfil.php');
+	exit();
+}else{
+    $querySelect = "select * from cliente where EMAIL = '".$_SESSION['usuario']."'";
+    $campos = oci_parse($conexao, $querySelect);
+    oci_execute($campos);
+    $row = oci_fetch_array($campos, OCI_ASSOC+OCI_RETURN_NULLS);
+    
+    // define saldo
+    if(empty($_POST['dinheiro'])){
+        $_POST['dinheiro'] = 0;
+    }
+    $saldo=$row['SALDO'] + $_POST['dinheiro'];
+    
+    
 
-// não conseguiu compilar setença
-if (!$s) {
-    $m = oci_error($c);
-    trigger_error("Não pôde compilar a sentença: ". $m["message"], E_USER_ERROR);
+    // define nome
+    if(empty($_POST['nome'])){
+        $nome = $row['PRIMEIRO_NOME'];
+    }else{
+        $nome = $_POST['nome'];
+    }
+
+    // define sobrenome
+    if(empty($_POST['sobrenome'])){
+        $sobrenome = $row['SEGUNDO_NOME'];
+    }else{
+        $sobrenome = $_POST['sobrenome'];
+    }
+
+    // define senha
+    if(empty($_POST['senha'])){
+        $senha = $row['HASH_SENHA'];
+    }else{
+        $senha = $_POST['senha'];
+    }
+
+    // atualiza dados
+    $query = "UPDATE CLIENTE SET PRIMEIRO_NOME='".$nome."', HASH_SENHA='".$senha."',  SEGUNDO_NOME='".$sobrenome."', SALDO=".$saldo." WHERE EMAIL ='".$_SESSION['usuario']."'";
+
+    $result = oci_parse($conexao, $query);
+
+    // não conseguiu compilar setença
+    if (!$result) {
+        $m = oci_error($conexao);
+        trigger_error("Não pôde compilar a sentença: ". $m["message"], E_USER_ERROR);
+    }
+
+    // commit
+    oci_execute($result, OCI_NO_AUTO_COMMIT);
+    oci_commit($conexao);
+
+    $_SESSION['atualizado'] = true;
+    header('Location: ../perfil.php');
+    exit();
+
 }
-
-// determina os parâmetros da inserção
-oci_bind_by_name($s, ":1", $_POST['nome']);
-oci_bind_by_name($s, ":2", $_POST['sobrenome']);
-oci_bind_by_name($s, ":3", $_POST['email']);
-oci_bind_by_name($s, ":4", $_POST['saldo']);
-oci_bind_by_name($s, ":5", $_POST['senha']);
-
-// commit
-oci_execute($s, OCI_NO_AUTO_COMMIT);
-oci_commit($c);
 
 ?>
