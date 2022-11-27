@@ -1,7 +1,7 @@
 <?php
 define('HOST', '127.0.0.1');
-define('USUARIO', 'ECLBDIT110');
-define('SENHA', 'Feyenoord2022');
+define('USUARIO', 'Usuario oracle');
+define('SENHA', 'sua senha');
 define('DB', 'bdengcomp_low');
 
 $conexao = oci_connect(USUARIO, SENHA, DB) or die ('Não foi possível conectar');

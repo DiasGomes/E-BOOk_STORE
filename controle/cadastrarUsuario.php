@@ -1,5 +1,4 @@
 <?php
-session_start();
 // Estabelece conexão
 include "conexao.php";
 
@@ -27,7 +26,7 @@ oci_bind_by_name($s, ":5", $_POST['senha']);
 
 // commit
 oci_execute($s, OCI_NO_AUTO_COMMIT);
-oci_commit($conexao);
+oci_commit($c);
 
 //exibe
 $_SESSION['cadastrado'] = true;
