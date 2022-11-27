@@ -21,7 +21,7 @@
 
         <?php if(isset($_SESSION['nao_cadastrado'])): ?>
             <div class="notification is-danger">
-                <p>ERRO: Campo não preenchido</p>
+                <p>ERRO: Campo(s) não preenchido(s)</p>
             </div>
         <?php
             endif;
