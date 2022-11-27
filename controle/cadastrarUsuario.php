@@ -1,10 +1,15 @@
 <?php
 // Estabelece conexão
-include "index.php";
-$c = conecta();
+include "conexao.php";
+
+if(empty($_POST['email']) || empty($_POST['senha'])) {
+    $_SESSION['nao_cadastrado'] = true;
+	header('Location: ../cadastro.php');
+	exit();
+}
 
 // determina o comando SQL
-$s = oci_parse($c, "INSERT INTO CLIENTE VALUES (:1, :2, :3, :4, :5)");
+$s = oci_parse($conexao, "INSERT INTO CLIENTE VALUES (:1, :2, :3, :4, :5)");
 
 // não conseguiu compilar setença
 if (!$s) {
@@ -24,6 +29,8 @@ oci_execute($s, OCI_NO_AUTO_COMMIT);
 oci_commit($c);
 
 //exibe
-print "Cliente (".$_POST['nome']." ".$_POST['sobrenome']. ") inserido.";
+$_SESSION['cadastrado'] = true;
+header('Location: ../cadastro.php');
+exit();
 
 ?>
