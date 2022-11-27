@@ -21,7 +21,7 @@
     padding-bottom: 25px;
 }
 
-.login{
+.cadastro{
     position: relative;
     margin-left: auto;
     margin-right: auto;
@@ -35,11 +35,11 @@
     color: red;
 }
 
-.loginRow{
+.cadastroRow{
     margin-top: 10px;
 }
 
-#cadastro{
+#login{
     background-color: green;
     color: white;
     padding: 5px 10px;
@@ -47,11 +47,17 @@
     font-size: x-small;
 }
 
-#conecta{
+#atualiza{
     background-color: green;
     color: white;
     padding: 5px 10px;
     border: none;
+}
+
+.sucesso{
+    margin-top: 10px;
+    text-align: center;
+    color: green;
 }
 
 

@@ -4,23 +4,39 @@
 <html>
     <head>
         <title>E-BOOK STORE</title>
+        <link rel="stylesheet" type="text/css" href="css/cadastro.css">
     </head>
     <body>
-        <a href="login.php">voltar</a>
+        <div class="conteudo">
+            <div class="titulo">
+                <h3 class="title has-text-grey">CADASTRO E-BOOK STORE</h3>
+                    </div>
 
-        <h3 class="title has-text-grey">CADASTRO E-BOOK STORE</h3>
-
-        <FORM method="post" action="controle/cadastrarUsuario.php">
-            <span>Nome: </span><input type='text' name="nome"><br/>
-            <span>Sobrenome: </span><input type='text' name="sobrenome"><br/>
-            <span>E-mail: </span><input type='text' name="email"><br/>
-            <span>Saldo: </span><input type='text' name="saldo"><br/>
-            <span>Senha: </span><input type='text' name="senha"><br/>
-            <INPUT type="submit" value="CADASTRAR">
-        </FORM>
+                <div class="cadastro">
+                    <FORM method="post" action="controle/cadastrarUsuario.php">
+                        <div class="cadastroRow">     
+                            <span>Nome: </span><input type='text' name="nome"><br/>
+                        </div>
+                        <div class="cadastroRow">     
+                            <span>Sobrenome: </span><input type='text' name="sobrenome"><br/>
+                        </div>
+                        <div class="cadastroRow"> 
+                            <span>E-mail: </span><input type='text' name="email"><br/>
+                        </div>
+                        <div class="cadastroRow"> 
+                            <span>Saldo: </span><input type='text' name="saldo"><br/>
+                        </div>
+                        <div class="cadastroRow"> 
+                            <span>Senha: </span><input type='text' name="senha"><br/>
+                        </div>
+                        <div class="cadastroRow"> 
+                            <a href="login.php" id="login">voltar</a>
+                            <INPUT type="submit" value="CADASTRAR" id="atualiza">
+                        </div>
+                    </FORM>
 
         <?php if(isset($_SESSION['nao_cadastrado'])): ?>
-            <div class="notification is-danger">
+            <div class="notification">
                 <p>ERRO: Campo(s) não preenchido(s)</p>
             </div>
         <?php
@@ -28,7 +44,7 @@
             unset($_SESSION['nao_cadastrado']);
         ?>
         <?php if(isset($_SESSION['cadastrado'])): ?>
-            <div class="notification is-danger">
+            <div class="sucesso">
                 <p>Cadastrado com sucesso</p>
             </div>
         <?php

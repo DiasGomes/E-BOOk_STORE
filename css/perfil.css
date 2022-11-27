@@ -5,7 +5,7 @@
 
 .conteudo{
     margin-top: 120px;
-    width: 25%;;
+    width: 30%;;
     position: relative;
     margin-left: auto;
     margin-right: auto;
@@ -21,7 +21,7 @@
     padding-bottom: 25px;
 }
 
-.login{
+.perfil{
     position: relative;
     margin-left: auto;
     margin-right: auto;
@@ -35,11 +35,11 @@
     color: red;
 }
 
-.loginRow{
+.atualizaRow{
     margin-top: 10px;
 }
 
-#cadastro{
+#voltar{
     background-color: green;
     color: white;
     padding: 5px 10px;
@@ -47,11 +47,17 @@
     font-size: x-small;
 }
 
-#conecta{
+#atualizar{
     background-color: green;
     color: white;
     padding: 5px 10px;
     border: none;
+}
+
+.sucesso{
+    margin-top: 10px;
+    text-align: center;
+    color: green;
 }
 
 
