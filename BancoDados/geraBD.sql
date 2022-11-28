@@ -39,7 +39,8 @@ create table E_BOOK (
     Link_arquivo varchar2(30) not null,
     ID_Editora number(5) not null,
     Numero_compras number(5) default 0 not null,
-    Media_aval number(2) default 0 not null
+    Num_avaliacoes number(2) default 0 not null,
+    Soma_avaliacoes number(5) default 0 not null
 );
 
 create table AUTORIA (
@@ -113,16 +114,29 @@ alter table AVALIACAO add constraint AV_NOTA_CK check(Nota between 0 and 10);
 --Triggers
 
 create or replace trigger TR_EBOOK_NUM_COMPRAS
-after insert on AQUISICAO for each row
+after insert or delete on AQUISICAO for each row
 BEGIN
-    update E_BOOK set Numero_compras = (select Numero_compras from E_Book e where e.ID_Ebook = :NEW.ID_Ebook) + 1 where ID_Ebook = :NEW.ID_Ebook;
+    IF(inserting) THEN
+        update E_BOOK set Numero_compras = (select Numero_compras from E_Book e where e.ID_Ebook = :NEW.ID_Ebook) + 1 where ID_Ebook = :NEW.ID_Ebook;
+    ELSE
+        update E_BOOK set Numero_compras = (select Numero_compras from E_Book e where e.ID_Ebook = :NEW.ID_Ebook) - 1 where ID_Ebook = :NEW.ID_Ebook;
+    END IF;
 END;
 /
 
-create or replace trigger TR_EBOOK_MEDIA_AVAL
-after insert on AVALIACAO
+create or replace trigger TR_EBOOK_AVAL
+after insert or update or delete on AVALIACAO for each row
 BEGIN
-    update E_BOOK e set Media_aval = (select AVG(Nota) from AVALIACAO group by ID_Ebook) where e.ID_Ebook = ID_Ebook;
+    IF INSERTING THEN
+        update E_BOOK set Num_avaliacoes = (select Num_avaliacoes from E_Book e where e.ID_Ebook = :NEW.ID_Ebook) + 1 where ID_Ebook = :NEW.ID_Ebook;
+        update E_BOOK set Soma_avaliacoes = (select Soma_avaliacoes from E_Book e where e.ID_Ebook = :NEW.ID_Ebook) + :NEW.Nota where ID_Ebook = :NEW.ID_Ebook;
+    ELSE IF UPDATING THEN
+            update E_BOOK set Soma_avaliacoes = (select Soma_avaliacoes from E_Book e where e.ID_Ebook = :NEW.ID_Ebook) + :NEW.Nota - :OLD.Nota where ID_Ebook = :NEW.ID_Ebook;
+        ELSE
+            update E_BOOK set Num_avaliacoes = (select Num_avaliacoes from E_Book e where e.ID_Ebook = :OLD.ID_Ebook) - 1 where ID_Ebook = :OLD.ID_Ebook;
+            update E_BOOK set Soma_avaliacoes = (select Soma_avaliacoes from E_Book e where e.ID_Ebook = :OLD.ID_Ebook) - :OLD.Nota where ID_Ebook = :OLD.ID_Ebook;
+        END IF;
+    END IF;
 END;
 /
 
@@ -136,7 +150,7 @@ END;
 /
 
 create or replace trigger TR_CLIENTE_SALDO_UPDATE
-before insert or update of Saldo on CLIENTE for each row
+before update of Saldo on CLIENTE for each row
 BEGIN
     IF(:NEW.Saldo > :OLD.Saldo + 10000 or :NEW.Saldo < :OLD.Saldo - 10000) THEN
         RAISE_APPLICATION_ERROR (-20002,'20002: Variacao absoluta no saldo maior do que 10000 reais.');
@@ -145,14 +159,23 @@ END;
 /
 
 create or replace trigger TR_CLIENTE_CK_SALDO_COMPRA
-before insert on AQUISICAO for each row
+before insert or update of Preco on AQUISICAO for each row --update em aquisicao alterara o saldo do cliete
 declare CL_Saldo number(6,2);
 BEGIN
-    select Saldo into CL_Saldo from CLIENTE where Email = :NEW.Email_Cliente;
-    IF CL_Saldo < :NEW.Preco THEN
-        RAISE_APPLICATION_ERROR (-20003,'20003: Saldo insuficiente.');
+    IF INSERTING THEN
+        select Saldo into CL_Saldo from CLIENTE where Email = :NEW.Email_Cliente;
+        IF CL_Saldo < :NEW.Preco THEN
+            RAISE_APPLICATION_ERROR (-20003,'20003: Saldo insuficiente.');
+        ELSE
+            update CLIENTE set Saldo = CL_Saldo - :NEW.Preco where Email = :NEW.Email_Cliente;
+        END IF;
     ELSE
-        update CLIENTE set Saldo = CL_Saldo - :NEW.Preco where Email = :NEW.Email_Cliente;
+        select Saldo into CL_Saldo from CLIENTE where Email = :NEW.Email_Cliente;
+        IF :NEW.Preco - :OLD.Preco > CL_Saldo THEN
+            RAISE_APPLICATION_ERROR (-20003,'20003: Saldo insuficiente.');
+        ELSE
+            update CLIENTE set Saldo = CL_Saldo - (:NEW.Preco - :OLD.Preco) where Email = :NEW.Email_Cliente;
+        END IF;
     END IF;
 END;
 /
@@ -187,11 +210,11 @@ insert into GENERO values ('Infantil');
 insert into GENERO values ('Conto');
 --select * from GENERO;
 
-insert into E_BOOK values (1, 'Titulo1', 1, '01/01/2001', 100, 'Link1', 1, 0, 0);
-insert into E_BOOK values (2, 'Titulo2', 1, '02/02/2002', 200, 'Link2', 2, 0, 0);
-insert into E_BOOK values (3, 'Titulo3', 1, '03/03/2003', 300, 'Link3', 3, 0, 0);
-insert into E_BOOK values (4, 'Titulo4', 1, '04/04/2004', 400, 'Link4', 4, 0, 0);
-insert into E_BOOK values (5, 'Titulo5', 1, '05/05/2005', 500, 'Link5', 5, 0, 0);
+insert into E_BOOK values (1, 'Titulo1', 1, '01/01/2001', 100, 'Link1', 1, 0, 0, 0);
+insert into E_BOOK values (2, 'Titulo2', 1, '02/02/2002', 200, 'Link2', 2, 0, 0, 0);
+insert into E_BOOK values (3, 'Titulo3', 1, '03/03/2003', 300, 'Link3', 3, 0, 0, 0);
+insert into E_BOOK values (4, 'Titulo4', 1, '04/04/2004', 400, 'Link4', 4, 0, 0, 0);
+insert into E_BOOK values (5, 'Titulo5', 1, '05/05/2005', 500, 'Link5', 5, 0, 0, 0);
 --select * from E_BOOK;
 
 insert into EBOOK_GENERO values (1, 'Ficcao');
@@ -220,17 +243,36 @@ select Numero_compras from E_BOOK where ID_Ebook = 1;
 --teste trigger valor aquisicao > saldo
 select Saldo from CLIENTE where email = 'joaogomes@gmail.com';
 select Numero_compras from E_BOOK where ID_Ebook = 3;
-insert into AQUISICAO values ('joaogomes@gmail.com', 3, '01/01/2000', 300); --Cliente 3 tenta comprar livro 3 por 300 reais (tem saldo de 200)
+insert into AQUISICAO values ('joaogomes@gmail.com', 3, '01/01/2000', 300); --Cliente 3 tenta comprar livro 3 por 300 reais (tem saldo de 200) --falha
 select Saldo from CLIENTE where Email = 'joaogomes@gmail.com';
 select Numero_compras from E_BOOK where ID_Ebook = 3;
 
+insert into AQUISICAO values ('caiovinicius@gmail.com', 2, '01/01/2000', 0);
+insert into AQUISICAO values ('caiovinicius@gmail.com', 3, '01/01/2000', 0);
+insert into AQUISICAO values ('caiovinicius@gmail.com', 4, '01/01/2000', 0);
+insert into AQUISICAO values ('caiovinicius@gmail.com', 5, '01/01/2000', 0); --caio possui livros de 1 a 5, ganhou de graca
+
+insert into AQUISICAO values ('pedroduarte@gmail.com', 2, '01/01/2000', 0);
+insert into AQUISICAO values ('pedroduarte@gmail.com', 3, '01/01/2000', 0); --pedro possui livros 2 e 3
+
+insert into AQUISICAO values ('tales@gmail.com',4, '01/01/2000', 0);
+insert into AQUISICAO values ('tales@gmail.com',5, '01/01/2000', 0); --tales possui livros 4 e 5
+
 --teste trigger nota media avaliacao
 select * from AVALIACAO;
-select Media_aval from E_BOOK where ID_Ebook = 1;
-insert into AVALIACAO values ('caiovinicius@gmail.com', 2, 10, 'Bom'); --tenta avalia um livro que nao possui
+select Num_avaliacoes, Soma_avaliacoes from E_BOOK where ID_Ebook = 1;
+--insert into AVALIACAO values ('caiovinicius@gmail.com', 2, 10, 'Bom'); --tenta avalia um livro que nao possui
 insert into AVALIACAO values ('caiovinicius@gmail.com', 1, 10, 'Bom');
 select * from AVALIACAO;
-select Media_aval from E_BOOK where ID_Ebook = 1;
+select Num_avaliacoes, Soma_avaliacoes from E_BOOK where ID_Ebook = 1;
+
+insert into AVALIACAO values ('caiovinicius@gmail.com', 2, 10, 'Ok');
+insert into AVALIACAO values ('pedroduarte@gmail.com', 2, 5, 'Pode melhorar'); --media deve ser 10+5 / 2 = 7.5
+
+--teste update e delete
+--select * from E_BOOK;
+--update AVALIACAO set Nota = 5 where Email_Cliente = 'caiovinicius@gmail.com' and ID_Ebook = 2;
+--delete from AVALIACAO where Email_Cliente = 'caiovinicius@gmail.com' and ID_Ebook = 2;
 
 commit;
 
