@@ -15,11 +15,16 @@
             <a href="login.php" class="links">Logout</a>
             <a href="perfil.php" class="links">Perfil</a>
             <?php
-                if($_SESSION['usuario'] == 'admin'): ?>
+                // apresenta aba de inserção de livros para o admin
+                if($_SESSION['usuario'] == 'admin@admin.com'): ?>
                     <a href="livro.php" class="links">Inserir Livro</a>
             <?php
                 endif;
             ?>
+        </div>
+
+        <div class="acervo">
+                <?php include "controle/showAcervo.php"; ?>
         </div>
     
     </div>
