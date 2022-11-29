@@ -17,7 +17,7 @@
             <?php
                 // apresenta aba de inserção de livros para o admin
                 if($_SESSION['usuario'] == 'admin@admin.com'): ?>
-                    <a href="livro.php" class="links">Inserir Livro</a>
+                    <a href="livro.php" class="links">Editar</a>
             <?php
                 endif;
             ?>

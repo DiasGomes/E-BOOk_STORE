@@ -4,75 +4,22 @@
 <html>
     <head>
         <title>E-BOOK STORE</title>
-        <link rel="stylesheet" type="text/css" href="css/livro.css">
+        <link rel="stylesheet" type="text/css" href="css/controle.css">
     </head>
     <body>
         <div class="admin">
             <div class="titulo">
                 <h2>ADMIN</h2>
             </div>
-            <a href="acervo.php" class="voltar">voltar</a>
+            <?php include "abas.php"; ?>
         </div>
-        
-        
 
         <div class="conteudo">
-            <div class="titulo">
-                <h3>CADASTRO DE EDITORAS</h3>
-            </div>
-            <div class="cadastro">
-                <FORM method="post" action="controle/cadastrarEditora.php">
-                    <div class="cadastroRow">     
-                        <span>ID: </span><input type='text' name="editora_id"><br/>
-                    </div>
-                    <div class="cadastroRow">     
-                        <span>Nome: </span><input type='text' name="editora_nome"><br/>
-                    </div>
-                    <div class="cadastroRow">
-                            <INPUT type="submit" value="INSERIR" class="submeter">
-                    </div>
-                </FORM>
-            </div>
-            
-            <div class="titulo">
-                <h3>CADASTRO DE GÊNENROS</h3>
-            </div>
-            <div class="cadastro">
-                <FORM method="post" action="controle/cadastrarGenero.php">
-                    <div class="cadastroRow">     
-                        <span>Nome: </span><input type='text' name="genero_nome"><br/>
-                    </div>
-                    <div class="cadastroRow">
-                            <INPUT type="submit" value="INSERIR" class="submeter">
-                    </div>
-                </FORM>
-            </div>
-
-            <div class="titulo">
-                <h3>CADASTRO DE AUTORES</h3>
-            </div>
-            <div class="cadastro">
-            <FORM method="post" action="controle/cadastrarAutor.php">
-                    <div class="cadastroRow">     
-                        <span>ID: </span><input type='text' name="autor_id"><br/>
-                    </div>
-                    <div class="cadastroRow">     
-                        <span>Nome: </span><input type='text' name="autor_nome"><br/>
-                    </div>
-                    <div class="cadastroRow">     
-                        <span>Sobre nome: </span><input type='text' name="autor_sobrenome"><br/>
-                    </div>
-                    <div class="cadastroRow">
-                            <INPUT type="submit" value="INSERIR" class="submeter">
-                    </div>
-                </FORM>
-            </div>
-
             <div class="titulo">
                 <h3>CADASTRO DE E-BOOKS</h3>
             </div>
             <div class="cadastro">
-            <FORM method="post" action="controle/cadastrarBook.php">
+            <FORM method="post" action="controle/cadastrarEBook.php">
                     <div class="cadastroRow">     
                         <span>ID: </span><input type='text' name="book_id"><br/>
                     </div>
@@ -93,7 +40,7 @@
                     </div>
                 </FORM>
             </div>
-            
+        </div>
     </body>
 </html>
 

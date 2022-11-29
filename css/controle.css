@@ -21,16 +21,9 @@
     margin-bottom: 10px;
 }
 
-.acervo{
-    margin-top: 20px;
-    text-align: center;
-}
-
-.bookBlock{
-    width: 25%;
-    background-color: #d9d9d9;
-    margin-bottom: 20px;
-    padding: 20px 20px;
+.conteudo{
+    margin-top: 120px;
+    width: 30%;;
     position: relative;
     margin-left: auto;
     margin-right: auto;
@@ -38,9 +31,35 @@
     border: solid;
 }
 
-.btnCompra{
-    padding: 5px 10px;
-    color: white;
-    background-color: green;
-    border: none;
+.acervo{
+    margin-top: 20px;
+    text-align: center;
+}
+
+.cadastro{
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    padding: 20px;
+}
+
+.notification{
+    margin-top: 10px;
+    text-align: center;
+    color: red;
+}
+
+.sucesso{
+    margin-top: 10px;
+    text-align: center;
+    color: green;
+}
+
+.listaCadastrados{
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    padding: 20px;
 }
