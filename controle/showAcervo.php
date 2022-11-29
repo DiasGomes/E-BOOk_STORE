@@ -23,7 +23,6 @@ while (($row = oci_fetch_array($result, OCI_ASSOC+OCI_RETURN_NULLS)) != false) {
         echo "<strong>".$row['TITULO']. "</strong>, ed ". $row['EDICAO'] .". ".$row['DATA_PUBLICACAO'] ."<br>";
         echo "Downloads: ". $row['NUMERO_COMPRAS'] . ", Nota: ".$nota ."<br>";
         echo "Preço: R$".$row['PRECO'] ."<br>";
-        echo $row['LINK_ARQUIVO'] ."<br>";
         echo "<button class='btnCompra' onclick='ola(".$row['ID_EBOOK'].",".$row['PRECO'].")'>Comprar</button>";
     echo "</div><br>";
 }

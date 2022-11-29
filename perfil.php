@@ -9,6 +9,7 @@ session_start();
         <link rel="stylesheet" type="text/css" href="css/perfil.css">
     </head>
     <body>
+        <?php include "abasStore.php"; ?>
         <div class="conteudo">
             <div class="titulo">
                 <h3 class="title has-text-grey">EDITAR PERFIL</h3>

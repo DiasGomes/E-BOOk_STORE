@@ -76,7 +76,7 @@ include "controle/conexao.php";
                                     <option value="">Escolha um Autor</option>
                                     <?php
                                         // executa a busca sql
-                                        $query = "select * from Autor";
+                                        $query = "select * from Autor order by ID_AUTOR";
                                         $result = oci_parse($conexao, $query);
                                         oci_execute($result);
 
