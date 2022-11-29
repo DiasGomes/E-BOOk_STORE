@@ -14,7 +14,9 @@
             <?php include "abas.php"; ?>
         </div>  
 
-        <div class="conteudo">
+        <div class="contain">
+            <div class="right">
+            <div class="conteudo">
             <div class="titulo">
                 <h3>CADASTRO DE AUTORES</h3>
             </div>
@@ -68,7 +70,8 @@
             </div>
 
         </div>
-
+        </div>
+        <div class="left">
         <div class="conteudo">
             <div class="titulo">
                 <h3>LISTA DE AUTORES</h3>
@@ -79,6 +82,9 @@
             <?php include "controle/showAutor.php"; ?>
 
             </div>
+        </div>
+        </div>
+
         </div>   
             
     </body>
