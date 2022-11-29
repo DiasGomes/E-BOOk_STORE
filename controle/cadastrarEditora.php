@@ -3,7 +3,15 @@ session_start();
 // Estabelece conexão
 include "conexao.php";
 
-if(empty($_POST['editora_id']) || empty($_POST['editora_nome'])) {
+// recebe o maior id e define o proximo 
+$queryMax = "select max(ID_EDITORA) MAXIMO from editora";
+$resultMax = oci_parse($conexao, $queryMax);
+oci_execute($resultMax);
+$idMax = oci_fetch_array($resultMax, OCI_ASSOC+OCI_RETURN_NULLS);
+$id = $idMax['MAXIMO'] + 1;;
+echo $id;
+
+if(empty($_POST['editora_nome'])) {
     $_SESSION['nao_cadastrado'] = true;
 	header('Location: ../editora.php');
 	exit();
@@ -20,7 +28,7 @@ if (!$s) {
 }
 
 // determina os parâmetros da inserção
-oci_bind_by_name($s, ":1", $_POST['editora_id']);
+oci_bind_by_name($s, ":1", $id);
 oci_bind_by_name($s, ":2", $_POST['editora_nome']);
 
 

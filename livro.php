@@ -10,12 +10,7 @@ include "controle/conexao.php";
         <link rel="stylesheet" type="text/css" href="css/controle.css">
     </head>
     <body>
-        <div class="admin">
-            <div class="titulo">
-                <h2>ADMIN</h2>
-            </div>
-            <?php include "abas.php"; ?>
-        </div>
+        <?php include "abas.php"; ?> 
         <div class="contain">
         <div class="right">
             <div class="conteudo">
@@ -24,9 +19,6 @@ include "controle/conexao.php";
                 </div>
                 <div class="cadastro">
                     <FORM method="post" action="controle/cadastrarLivro.php">
-                            <div class="cadastroRow">     
-                                <span>ID: </span><input type='text' name="id"><br/>
-                            </div>
                             <div class="cadastroRow">     
                                 <span>Título: </span><input type='text' name="titulo"><br/>
                             </div>

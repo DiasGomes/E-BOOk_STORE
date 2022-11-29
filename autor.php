@@ -7,12 +7,7 @@
         <link rel="stylesheet" type="text/css" href="css/controle.css">
     </head>
     <body>
-        <div class="admin">
-            <div class="titulo">
-                <h2>ADMIN</h2>
-            </div>
-            <?php include "abas.php"; ?>
-        </div>  
+        <?php include "abas.php"; ?>   
 
         <div class="contain">
             <div class="right">
@@ -22,9 +17,6 @@
             </div>
             <div class="cadastro">
             <FORM method="post" action="controle/cadastrarAutor.php">
-                    <div class="cadastroRow">     
-                        <span>ID: </span><input type='text' name="autor_id"><br/>
-                    </div>
                     <div class="cadastroRow">     
                         <span>Nome: </span><input type='text' name="autor_nome"><br/>
                     </div>
@@ -37,7 +29,7 @@
                 </FORM>
                 <?php if(isset($_SESSION['nao_cadastrado'])): ?>
                     <div class="notification">
-                        <p>Campo(s) Vazio(s)</p>
+                        <p>Campo(s) Vazio(s)<?php $_SESSION['nao_cadastrado'] ?></p>
                     </div>
                 <?php
                     endif;

@@ -7,12 +7,7 @@
         <link rel="stylesheet" type="text/css" href="css/controle.css">
     </head>
     <body>
-        <div class="admin">
-            <div class="titulo">
-                <h2>ADMIN</h2>
-            </div>
-            <?php include "abas.php"; ?>
-        </div>  
+        <?php include "abas.php"; ?>  
 
         <div class="contain">
         <div class="right">

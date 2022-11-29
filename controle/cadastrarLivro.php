@@ -3,7 +3,15 @@ session_start();
 // Estabelece conexão
 include "conexao.php";
 
-if(empty($_POST['id']) || empty($_POST['titulo']) || empty($_POST['edicao']) || empty($_POST['data']) || empty($_POST['preco']) || empty($_POST['editora']) || empty($_POST['arquivo'])) {
+// recebe o maior id e define o proximo 
+$queryMax = "select max(ID_EBOOK) MAXIMO from E_BOOK";
+$resultMax = oci_parse($conexao, $queryMax);
+oci_execute($resultMax);
+$idMax = oci_fetch_array($resultMax, OCI_ASSOC+OCI_RETURN_NULLS);
+$id = $idMax['MAXIMO'] + 1;;
+echo $id;
+
+if(empty($_POST['titulo']) || empty($_POST['edicao']) || empty($_POST['data']) || empty($_POST['preco']) || empty($_POST['editora']) || empty($_POST['arquivo'])) {
     $_SESSION['nao_cadastrado'] = true;
 	header('Location: ../livro.php');
 	exit();
@@ -25,7 +33,7 @@ oci_execute($maxID);
  */
 
 // determina os parâmetros da inserção
-oci_bind_by_name($s, ":1", $_POST['id']);
+oci_bind_by_name($s, ":1", $id);
 oci_bind_by_name($s, ":2", $_POST['titulo']);
 oci_bind_by_name($s, ":3", $_POST['edicao']);
 oci_bind_by_name($s, ":4", $_POST['data']);

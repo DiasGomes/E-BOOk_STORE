@@ -50,6 +50,13 @@
     color: red;
 }
 
+.submeter{
+    background-color: green;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+}
+
 .sucesso{
     margin-top: 10px;
     text-align: center;
