@@ -62,7 +62,7 @@
         <div class="left">
             <div class="conteudo">
                 <div class="titulo">
-                    <h3>LISTA DE Editoras</h3>
+                    <h3>LISTA DE EDITORAS</h3>
                 </div>
 
                 <div class="listaCadastrados">

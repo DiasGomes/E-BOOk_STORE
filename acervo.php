@@ -16,8 +16,6 @@
     <div class="conteudo">
         <?php include "abasStore.php"; ?>
         <div class="acervo">
-            
-        
             <?php include "controle/showAcervo.php"; ?>
         </div>
     
