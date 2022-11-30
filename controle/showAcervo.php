@@ -2,10 +2,6 @@
 
 include "conexao.php";
 
-function ola($id, $valor){
-    echo  "<script>".$id." - ". $valor ."</script>";
-}
-
 // executa a busca sql
 $query = "select * from e_book";
 $result = oci_parse($conexao, $query);
@@ -23,7 +19,7 @@ while (($row = oci_fetch_array($result, OCI_ASSOC+OCI_RETURN_NULLS)) != false) {
         echo "<strong>".$row['TITULO']. "</strong>, ed ". $row['EDICAO'] .". ".$row['DATA_PUBLICACAO'] ."<br>";
         echo "Downloads: ". $row['NUMERO_COMPRAS'] . ", Nota: ".$nota ."<br>";
         echo "Preço: R$".$row['PRECO'] ."<br>";
-        echo "<button class='btnCompra' onclick='ola(".$row['ID_EBOOK'].",".$row['PRECO'].")'>Comprar</button>";
+        echo "<button class='btnCompra' onclick='compra(".$row['ID_EBOOK'].",".$row['PRECO'].")'>Comprar</button>";
     echo "</div><br>";
 }
 
