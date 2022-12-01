@@ -53,42 +53,6 @@ include "controle/conexao.php";
                                 </select>
                             </div>
                             <div class="cadastroRow">
-                                <label for="genero-select">Gênero:</label>
-                                <select name='genero' class='Select'>
-                                    <option value="">Escolha um gênero</option>
-                                    <?php
-                                        // executa a busca sql
-                                        $query = "select * from genero";
-                                        $result = oci_parse($conexao, $query);
-                                        oci_execute($result);
-
-                                        // Acessa cada linha retornada pela query
-                                        while (($row = oci_fetch_array($result, OCI_ASSOC+OCI_RETURN_NULLS)) != false) {
-                                            echo "<option value='".$row['GENERO']."'>".$row['GENERO']."</option>";
-                                                
-                                        }
-                                    ?>
-                                </select>
-                            </div>
-                            <div class="cadastroRow">
-                                <label for="autor-select">Autor:</label>
-                                <select name='autor' class='Select'>
-                                    <option value="">Escolha um Autor</option>
-                                    <?php
-                                        // executa a busca sql
-                                        $query = "select * from Autor order by ID_AUTOR";
-                                        $result = oci_parse($conexao, $query);
-                                        oci_execute($result);
-
-                                        // Acessa cada linha retornada pela query
-                                        while (($row = oci_fetch_array($result, OCI_ASSOC+OCI_RETURN_NULLS)) != false) {
-                                            echo "<option value='".$row['ID_AUTOR']."'>[".$row['ID_AUTOR']. "] - ". $row['PRIMEIRO_NOME'];
-                                            echo " ". $row['SEGUNDO_NOME']."</option>";
-                                        }
-                                    ?>
-                                </select>
-                            </div>
-                            <div class="cadastroRow">
                                 <INPUT type="submit" value="INSERIR" class="submeter">
                             </div>
                         </FORM>

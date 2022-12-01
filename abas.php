@@ -5,6 +5,7 @@
     <div>
         <a href="acervo.php" class="links">Voltar</a>
         <a href="livro.php" class="links">Livros</a>
+        <a href="infoLivro.php" class="links">Autoria & Gênero Livro</a>
         <a href="preco.php" class="links">Preços</a>
         <a href="autor.php" class="links">Autores</a>
         <a href="editora.php" class="links">Editoras</a>
