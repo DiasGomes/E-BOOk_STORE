@@ -168,7 +168,7 @@ include "controle/conexao.php";
                                 </div>
                             <?php
                                 endif;
-                                unset($_SESSION['erro_query']);
+                                unset($_SESSION['erro_query-2']);
                             ?>
                             <?php if(isset($_SESSION['erro_setenca'])): ?>
                                 <div class="notification">

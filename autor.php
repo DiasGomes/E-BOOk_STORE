@@ -1,4 +1,5 @@
-<?php session_start(); ?>
+<?php session_start(); 
+include "controle/conexao.php";?>
 
 <!DOCTYPE html>
 <html>
@@ -60,22 +61,58 @@
                     unset($_SESSION['cadastrado']);
                 ?>
             </div>
+            </div>
+            <div class="conteudo">
+                <div class="titulo">
+                    <h3>DELETAR AUTOR</h3>
+                </div>
+                <div class="listaCadastrados">
+                <FORM method="post" action="controle/deletarAutor.php">
+                <div class="cadastroRow">
+                <label for="autor-select">Autor: </label>
+                    <select name='del_autor' class='Select'>
+                        <option value="">Escolha um Autor</option>
+                            <?php
+                                // executa a busca sql
+                                $query = "select * from Autor order by ID_AUTOR";
+                                $result = oci_parse($conexao, $query);
+                                oci_execute($result);
 
-        </div>
-        </div>
-        <div class="left">
-        <div class="conteudo">
-            <div class="titulo">
-                <h3>LISTA DE AUTORES</h3>
+                                // Acessa cada linha retornada pela query
+                                while (($row = oci_fetch_array($result, OCI_ASSOC+OCI_RETURN_NULLS)) != false) {
+                                    echo "<option value='".$row['ID_AUTOR']."'>[".$row['ID_AUTOR']. "] - ". $row['PRIMEIRO_NOME'];
+                                    echo " ". $row['SEGUNDO_NOME']."</option>";
+                                }
+                                ?>
+                        </select>
+                    </div>
+                    <div class="cadastroRow">
+                        <INPUT type="submit" value="DELETAR" class="submeter">
+                    </div>
+                </FORM>
+                    <?php if(isset($_SESSION['erro_delete'])): ?>
+                            <div class="notification">
+                                <p>Não foi possível excluir, pois este autor está vinculado a uma obra</p>
+                            </div>
+                        <?php
+                            endif;
+                            unset($_SESSION['erro_delete']);
+                        ?>
+                        <?php if(isset($_SESSION['deletado'])): ?>
+                            <div class="sucesso">
+                                <p>Autor excluido</p>
+                            </div>
+                        <?php
+                            endif;
+                            unset($_SESSION['deletado']);
+                        ?>
             </div>
 
-            <div class="listaCadastrados">
-
-            <?php include "controle/showAutor.php"; ?>
-
+        </div>
+        </div>
+            <div class="left">
+                <?php include "controle/showAutor.php"; ?>
             </div>
-        </div>
-        </div>
 
         </div>   
             

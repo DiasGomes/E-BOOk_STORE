@@ -1,4 +1,7 @@
-<?php session_start(); ?>
+<?php 
+    session_start();
+    include "controle/conexao.php";
+?>
 
 <!DOCTYPE html>
 <html>
@@ -58,17 +61,56 @@
                         unset($_SESSION['cadastrado']);
                     ?>
             </div>
-        </div>
-        <div class="left">
+
             <div class="conteudo">
                 <div class="titulo">
-                    <h3>LISTA DE EDITORAS</h3>
+                    <h3>DELETAR AUTOR</h3>
                 </div>
-
                 <div class="listaCadastrados">
-                    <?php include "controle/showEditora.php"; ?>
-                </div>
-            </div> 
+                <FORM method="post" action="controle/deletarEditora.php">
+                <div class="cadastroRow">
+                <label for="editora-select">Editora: </label>
+                    <select name='del_editora' class='Select'>
+                        <option value="">Escolha uma Editora</option>
+                        <?php
+                            // executa a busca sql
+                            $query = "select * from editora order by ID_EDITORA";
+                            $result = oci_parse($conexao, $query);
+                            oci_execute($result);
+
+                            // Acessa cada linha retornada pela query
+                            while (($row = oci_fetch_array($result, OCI_ASSOC+OCI_RETURN_NULLS)) != false) {
+                                echo "<option value='".$row['ID_EDITORA']."'>[".$row['ID_EDITORA']. "] - ". $row['NOME']."</option>";
+                            }
+
+                        ?>
+                    </select>
+                    </div>
+                    <div class="cadastroRow">
+                        <INPUT type="submit" value="DELETAR" class="submeter">
+                    </div>
+                </FORM>
+                    <?php if(isset($_SESSION['erro_delete'])): ?>
+                            <div class="notification">
+                                <p>Não foi possível excluir, pois esta editora está vinculado a uma obra</p>
+                            </div>
+                        <?php
+                            endif;
+                            unset($_SESSION['erro_delete']);
+                        ?>
+                        <?php if(isset($_SESSION['deletado'])): ?>
+                            <div class="sucesso">
+                                <p>Editora excluida</p>
+                            </div>
+                        <?php
+                            endif;
+                            unset($_SESSION['deletado']);
+                        ?>
+            </div>
+            </div>
+        </div>
+        <div class="left">
+            <?php include "controle/showEditora.php"; ?>
         </div>
         </div>
 
