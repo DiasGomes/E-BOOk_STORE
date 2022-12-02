@@ -6,7 +6,7 @@ include "conexao.php";
 if(empty($_POST['id']) || (empty($_POST['genero']) && empty($_POST['autor']))) {
     // não inseriu o livro ou não inseriu um gênero e/ou autor
     $_SESSION['nao_cadastrado'] = true;
-	header('Location: ../infoLivro.php');
+	header('Location: ../livro.php');
 	exit();
 }else{
     // insere autoria
@@ -32,8 +32,8 @@ if(empty($_POST['id']) || (empty($_POST['genero']) && empty($_POST['autor']))) {
     }
 
     //exibe
-    $_SESSION['cadastrado'] = true;
-    header('Location: ../infoLivro.php');
+    $_SESSION['inserido'] = true;
+    header('Location: ../livro.php');
     exit();
 
 }
@@ -42,7 +42,7 @@ if(empty($_POST['id']) || (empty($_POST['genero']) && empty($_POST['autor']))) {
 function checaSetenca($s){
     if (!$s) {
         $_SESSION['erro_setenca'] = true;
-        header('Location: ../infoLivro.php');
+        header('Location: ../livro.php');
         exit();
     }
 }
@@ -50,8 +50,8 @@ function checaSetenca($s){
 function checaExecute($r){
     // não conseguiu inserir os valores
     if (!$r) {
-        $_SESSION['erro_query'] = true;
-        header('Location: ../infoLivro.php');
+        $_SESSION['erro_query-2'] = true;
+        header('Location: ../livro.php');
         exit();
     }
 }
