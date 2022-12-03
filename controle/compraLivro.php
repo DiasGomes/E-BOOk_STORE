@@ -26,7 +26,7 @@ $r = oci_execute($s, OCI_NO_AUTO_COMMIT);
 
 // não conseguiu inserir os valores
 if (!$r) {
-    $_SESSION['erro_query'] = true;
+    $_SESSION['nao_comprado'] = true;
 	header('Location: ../acervo.php');
 	exit();
 }

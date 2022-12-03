@@ -14,3 +14,15 @@
     endif;
 ?>
 </div>
+<div id="fixo">
+    <span>Saldo: 
+        <?php
+            // faz a busca para exibir o saldo do usuário
+            $query = "SELECT saldo FROM CLIENTE where email='".$_SESSION['usuario']."'";
+            $result = oci_parse($conexao, $query);
+            oci_execute($result);
+            $row = oci_fetch_array($result, OCI_ASSOC+OCI_RETURN_NULLS);
+            print $row['SALDO'];
+        ?>
+    </span>
+</div>

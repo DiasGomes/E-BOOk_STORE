@@ -1,7 +1,5 @@
 <?php
 
-include "conexao.php";
-
 // executa a busca sql
 $query = "select id_ebook,titulo, edicao, link_arquivo, nome from e_book e natural join editora where id_ebook in
 (select id_ebook from aquisicao where email_cliente='". $_SESSION['usuario'] ."')";

@@ -1,7 +1,5 @@
 <?php
 
-include "conexao.php";
-
 // executa a busca sql
 $query = "select * from e_book";
 $result = oci_parse($conexao, $query);
@@ -45,20 +43,6 @@ while (($row = oci_fetch_array($result, OCI_ASSOC+OCI_RETURN_NULLS)) != false) {
                 echo "<input type='hidden' name='id' value='". $row['ID_EBOOK'] ."'>";
                 echo "<input type='hidden' name='preco' value='". $row['PRECO'] ."'>";
                 echo "<INPUT type='submit' value='Comprar' class='btnCompra'></FORM>";
-
-        if(isset($_SESSION['erro_setenca'])){
-            echo "<script> alert('Ops! Ocorreu um erro')</script";
-            unset($_SESSION['erro_setenca']);}
-        
-        unset($_SESSION['erro_query']);
-
-        if(isset($_SESSION['erro_query'])){
-            echo "<script> alert('Ops! Ocorreu um erro')</script";
-            unset($_SESSION['erro_query']);}
-
-        if(isset($_SESSION['comprado'])){
-            echo "<script> alert('Compra efetuada com sucesso!')</script";}
-        unset($_SESSION['comprado']);
 
     echo "</div><br>";
 }

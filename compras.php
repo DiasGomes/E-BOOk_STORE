@@ -1,6 +1,8 @@
-<?php 
-session_start(); 
+<?php
+session_start();
+include "controle/conexao.php";
 ?>
+
 
 <!DOCTYPE html>
 <html>

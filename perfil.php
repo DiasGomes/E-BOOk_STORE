@@ -1,5 +1,6 @@
 <?php
 session_start();
+include "controle/conexao.php";
 ?>
 
 <!DOCTYPE html>
@@ -17,18 +18,6 @@ session_start();
 
             <div class="perfil">
                 <FORM method="post" action="controle/editarPerfil.php">
-                    <div class="atualizaRow"> 
-                        <span>Saldo: 
-                        <?php
-                            include "controle/conexao.php";
-                            // faz a busca para exibir o saldo do usuário
-                            $query = "SELECT saldo FROM CLIENTE where email='".$_SESSION['usuario']."'";
-                            $result = oci_parse($conexao, $query);
-                            oci_execute($result);
-                            $row = oci_fetch_array($result, OCI_ASSOC+OCI_RETURN_NULLS);
-                            print $row['SALDO'];
-                        ?></span><br/>
-                    </div>
                     <div class="atualizaRow"> 
                         <span>Alterar Nome: </span><input type='text' name="nome"><br/>
                     </div>
