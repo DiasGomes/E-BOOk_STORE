@@ -186,7 +186,7 @@ insert into CLIENTE values ('admin@admin.com', 'admin', 'admin', 0, '123');
 insert into CLIENTE values ('caiovinicius@gmail.com', 'Caio', 'Vinicius', 500, '123');
 insert into CLIENTE values ('joaogomes@gmail.com', 'Joao', 'Gomes', 500, '123');
 insert into CLIENTE values ('pedroduarte@gmail.com', 'Pedro', 'Duarte', 500, '123');
-insert into CLIENTE values ('tales@gmail.com', 'Tales', 'A', 500, '123');
+insert into CLIENTE values ('thalesbastos@gmail.com', 'Thales', 'Bastos', 500, '123');
 --select * from CLIENTE;
 
 --select * from AUTOR;
@@ -251,8 +251,8 @@ insert into AQUISICAO values ('pedroduarte@gmail.com', 3, '01/01/2000', 47.70);
 insert into AQUISICAO values ('pedroduarte@gmail.com', 5, '01/01/2000', 89.80);
 --select Saldo from CLIENTE where Email = 'pedroduarte@gmail.com';
 
-insert into AQUISICAO values ('tales@gmail.com', 2, '01/01/2000', 389.60);
-insert into AQUISICAO values ('tales@gmail.com', 3, '01/01/2000', 47.70);
+insert into AQUISICAO values ('thalesbastos@gmail.com', 2, '01/01/2000', 389.60);
+insert into AQUISICAO values ('thalesbastos@gmail.com', 3, '01/01/2000', 47.70);
 --select Saldo from CLIENTE where Email = 'pedroduarte@gmail.com';
 
 --select E.ID_Ebook, C.Email from E_BOOK E
