@@ -19,9 +19,9 @@ if (!$s) {
 }
 
 // determina os parâmetros da inserção
-oci_bind_by_name($s, ":1", $_POST['nome']);
-oci_bind_by_name($s, ":2", $_POST['sobrenome']);
-oci_bind_by_name($s, ":3", $_POST['email']);
+oci_bind_by_name($s, ":1", $_POST['email']);
+oci_bind_by_name($s, ":2", $_POST['nome']);
+oci_bind_by_name($s, ":3", $_POST['sobrenome']);
 oci_bind_by_name($s, ":4", $_POST['saldo']);
 oci_bind_by_name($s, ":5", $_POST['senha']);
 
