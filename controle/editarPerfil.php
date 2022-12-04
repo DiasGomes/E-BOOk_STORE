@@ -1,6 +1,7 @@
 <?php
 session_start();
 // Estabelece conexão
+include "conexao.php";
 
 if(empty($_POST['sobrenome']) && empty($_POST['nome']) && empty($_POST['senha']) && empty($_POST['dinheiro'])) {
     $_SESSION['nao_atualizado'] = true;

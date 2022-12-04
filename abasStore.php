@@ -15,7 +15,7 @@
 ?>
 </div>
 <div id="fixo">
-    <span>Saldo: 
+    <span>Saldo: R$ 
         <?php
             // faz a busca para exibir o saldo do usuário
             $query = "SELECT saldo FROM CLIENTE where email='".$_SESSION['usuario']."'";

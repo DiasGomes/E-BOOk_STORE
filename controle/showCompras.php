@@ -1,7 +1,8 @@
 <?php
 
 // executa a busca sql
-$query = "select id_ebook,titulo, edicao, link_arquivo, nome from e_book e natural join editora where id_ebook in
+$query = "select e.id_ebook, e.titulo, e.edicao, e.link_arquivo, ed.nome from e_book e 
+join editora ed on ed.id_editora = e.id_editora where id_ebook in
 (select id_ebook from aquisicao where email_cliente='". $_SESSION['usuario'] ."')";
 $result = oci_parse($conexao, $query);
 oci_execute($result);

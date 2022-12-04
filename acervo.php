@@ -14,6 +14,20 @@ include "controle/conexao.php";
     <div class="conteudo">
         <?php include "abasStore.php"; ?>
         <div class="acervo">
+        <FORM method="post" action="controle/showFiltro.php">
+            <label for="filtro-select">Preço até: </label>
+                        <select name='filtro' class='Select'>
+                            <option value="">Todos</option>
+                                <?php
+                                    for($i = 50; $i < 400; $i+=50) {
+                                        echo "<option value='".$i."'> R$".$i;
+                                    }
+                                    ?>
+                            </select>
+                            <INPUT type="submit" value="FILTRAR" class="btnCompra">
+        </FORM>
+        </div>
+        <div class="acervo">
             <?php include "controle/showAcervo.php"; ?>
         </div>
     
